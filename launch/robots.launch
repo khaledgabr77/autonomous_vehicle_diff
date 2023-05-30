@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+
+
+  <!-- No namespace here as we will share this description. 
+       Access with slash at the beginning -->
+  
+  <!-- BEGIN ROBOT 1-->
+  <group ns="robot1">
+ <param name="tf_prefix" value="robot1_tf" />
+ <param name="robot_description"
+command="$(find xacro)/xacro.py'$(find urdf_tests)/urdf_autonomous_vehicle_diff_multi_agent/ autonomous_vehicle_diff_hokuyo_driver_cam_multi.urdf.xacro'"/>
+
+<include file="$(find urdf_tests)/launch/amcl1.launch" />
+<include file="$(find urdf_tests)/launch/multi_agent/one_robot.launch">
+<arg name ="x" value="1"/>
+<arg name ="y" value="1.2"/>
+<arg name ="z" value="0"/>
+<arg name ="robot_name" value="robot_1"/>
+
+
+    </include>
+   
+  </group>
+
+  <!-- BEGIN ROBOT 2-->
+   <group ns="robot2">
+    <param name="tf_prefix" value="robot2_tf" />
+<param name="robot_description"
+command="$(find xacro)/xacro.py'$(find urdf_tests)/urdf_autonomous_vehicle_diff_multi_agent/autonomous_vehicle_diff_hokuyo_driver_cam_multi.urdf.xacro'"/>
+<include file="$(find urdf_tests)/launch/amcl2.launch"/>
+<include file="$(find urdf_tests)/launch/multi_agent/one_robot.launch">
+<arg name ="x" value="-1"/>
+<arg name ="y" value="1"/>
+<arg name ="z" value="0"/>
+<arg name ="robot_name" value="robot_2"/>
+
+    </include>
+   </group>
+</launch>
