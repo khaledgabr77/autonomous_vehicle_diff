@@ -19,8 +19,15 @@
      args="$(arg init_pose) -urdf -param /robot_description -model $(arg robot_name)"
      respawn="false" output="screen" /-->
 
-    <node pkg="robot_state_publisher" type="state_publisher" 
-          name="robot_state_publisher" output="screen"/> 
+
+    <!-- Send fake joint values-->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="false" />
+    </node>
+
+    <!-- Send robot states to tf -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen" />
 
 
     <!-- The odometry estimator, throttling, fake laser etc. go here -->
